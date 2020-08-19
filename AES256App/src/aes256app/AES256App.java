@@ -20,14 +20,14 @@ public class AES256App {
     /**
      * @param args the command line arguments
      */
-    private static String password = "Ad0b37@Rg37)(*&^Ad0b37@Rg37)(*&^";
-    private static String salt = "a5f73cbbfff1466f";
+    private static String password = "Pr0d@d0b37@Rg371N7eR@c71234)(*&^";
+    private static String salt = "4492e63385745158";
 
     public static void main(String[] args) {
 
         Logger logger = FlowLogger.getLogger(AES256App.class.getName());
 
-        String originalString = "97431436575";
+        String originalString = "97430355952";
         String encryptedString = AES256App.encrypt(originalString, password, salt);
         logger.info(encryptedString);
         String decryptedString = AES256App.decrypt(encryptedString, password, salt);
