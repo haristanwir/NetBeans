@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-InteractService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/InteractService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/InteractService" destdir="${build.generated.dir}/jax-wsCache/InteractService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/InteractService/wsdl/InteractService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="file:/C:/Users/Haris%20Tanwir/Documents/NetBeansProjects/InteractWrapper/interact/InteractService.wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/InteractService/wsdl/InteractService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/InteractService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/InteractService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-InteractService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/unicacorp/interact/api/soap"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/InteractService"/>
+    </target>
+    <target name="wsimport-service-InteractService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/InteractService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/InteractService" destdir="${build.generated.dir}/jax-wsCache/service/InteractService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/InteractService/wsdl/InteractService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/InteractService/wsdl/InteractService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/InteractService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/InteractService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/InteractService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/InteractService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-InteractService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/unicacorp/interact/api/soap"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/InteractService"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-InteractService"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-InteractService"/>
+</project>

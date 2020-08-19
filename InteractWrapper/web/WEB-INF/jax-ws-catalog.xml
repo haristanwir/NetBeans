@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/Haris%20Tanwir/Documents/NetBeansProjects/InteractWrapper/interact/InteractService.wsdl" uri="wsdl/InteractService.wsdl"/>
+    <system systemId="file:/C:/Users/Haris%20Tanwir/Documents/NetBeansProjects/InteractWrapper/interact/InteractService_InlineSchema2.xsd" uri="wsdl/InteractService_InlineSchema2.xsd"/>
+    <system systemId="file:/C:/Users/Haris%20Tanwir/Documents/NetBeansProjects/InteractWrapper/interact/InteractService_InlineSchema1.xsd" uri="wsdl/InteractService_InlineSchema1.xsd"/>
+</catalog>

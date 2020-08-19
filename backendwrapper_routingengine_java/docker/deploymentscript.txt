@@ -1,0 +1,6 @@
+oc new-build --strategy docker --binary --docker-image tomcat:8.5-alpine --name backend-routingengine-java
+cat docker.zip | oc start-build backend-routingengine-java --from-dir=- --follow
+oc new-app backend-routingengine-java --env-file .env -o yaml > backend-routingengine-java_test.yaml
+oc create -f backend-routingengine-java_test.yaml
+oc expose svc backend-routingengine-java
+oc get route backend-routingengine-java

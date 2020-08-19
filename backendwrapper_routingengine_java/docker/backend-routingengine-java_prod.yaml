@@ -1,0 +1,103 @@
+apiVersion: v1
+items:
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: backend-routingengine-java
+      app.kubernetes.io/part-of: integration-layer
+    name: backend-routingengine-java
+  spec:
+    replicas: 1
+    selector:
+      app: backend-routingengine-java
+      deploymentconfig: backend-routingengine-java
+    strategy:
+      resources: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: backend-routingengine-java
+          deploymentconfig: backend-routingengine-java
+      spec:
+        containers:
+        - image: image-registry.openshift-image-registry.svc:5000/chatbot/backend-routingengine-java:latest
+          name: backend-routingengine-java
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          env:
+            - name: AMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: amq-credential-secret
+                  key: password
+            - name: AMQ_TCP_HOST
+              value: broker-amq-headless
+            - name: AMQ_TCP_PORT
+              value: '61616'
+            - name: AMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: amq-credential-secret
+                  key: username
+            - name: CRO_QUEUE
+              value: cro.interaction.queue
+            - name: JOLOKIA_BROKER
+              value: broker
+            - name: JOLOKIA_HOST
+              value: broker-amq-headless
+            - name: JOLOKIA_PORT
+              value: '8161'
+            - name: LOG_LEVEL
+              value: info
+            - name: TZ
+              value: Asia/Karachi
+          resources: {}
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - backend-routingengine-java
+        from:
+          kind: ImageStreamTag
+          name: backend-routingengine-java:latest
+          namespace: chatbot
+      type: ImageChange
+  status:
+    availableReplicas: 0
+    latestVersion: 0
+    observedGeneration: 0
+    replicas: 0
+    unavailableReplicas: 0
+    updatedReplicas: 0
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: backend-routingengine-java
+    name: backend-routingengine-java
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: backend-routingengine-java
+      deploymentconfig: backend-routingengine-java
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}
