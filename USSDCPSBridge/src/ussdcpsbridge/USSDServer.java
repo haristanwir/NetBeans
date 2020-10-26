@@ -42,7 +42,7 @@ public class USSDServer {
         deliverSm.setProtocolId((byte)0x34);
         deliverSm.setRegisteredDelivery((byte)0x00);
         deliverSm.setSequenceNumber(10342);
-        deliverSm.setShortMessage(CharsetUtil.encode("CHKIDENTITY", CharsetUtil.CHARSET_GSM7));
+        deliverSm.setShortMessage(CharsetUtil.encode("CHKIDENTITY", CharsetUtil.CHARSET_GSM));
         deliverSm.setSourceAddress(new Address((byte)0x01, (byte)0x01, "923000513022"));
         
         System.out.println("Sending: CHKIDENTITY");

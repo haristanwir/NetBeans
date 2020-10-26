@@ -22,16 +22,27 @@ public class AES256App {
      */
     private static String password = "Pr0d@d0b37@Rg371N7eR@c71234)(*&^";
     private static String salt = "4492e63385745158";
+    //private static String password = "Ad0b37@Rg37)(*&^Ad0b37@Rg37)(*&^";
+    //private static String salt = "a5f73cbbfff1466f";
 
     public static void main(String[] args) {
 
         Logger logger = FlowLogger.getLogger(AES256App.class.getName());
 
-        String originalString = "97430355952";
-        String encryptedString = AES256App.encrypt(originalString, password, salt);
-        logger.info(encryptedString);
-        String decryptedString = AES256App.decrypt(encryptedString, password, salt);
-        logger.info(decryptedString);
+        String[] nums = new String[]{"97479050005",
+            "97479050004",
+            "97430355952",
+            "97474411079",
+            "97474006870"};
+
+        //String originalString = "97430355952";
+        for (String originalString : nums) {
+            String encryptedString = AES256App.encrypt(originalString, password, salt);
+            logger.info(encryptedString);
+            String decryptedString = AES256App.decrypt(encryptedString, password, salt);
+            logger.info(decryptedString);
+            logger.info("_____________________________");
+        }
     }
 
     public static String encrypt(String strToEncrypt, String password, String salt) {

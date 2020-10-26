@@ -67,7 +67,7 @@ public class CloudHopperClient {
         //System.out.println(DeliveryReceipt.toMessageIdAsHexString(28591422));
 
         //HexUtil.
-        String ip = "127.0.0.1";
+        String ip = "10.50.20.118";
         String port = "2775";
         String systemID = "smppclient1";
         String password = "password";
