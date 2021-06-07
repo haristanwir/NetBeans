@@ -39,27 +39,31 @@ public class RegexApp {
 
         String jsonArrayString = new RegexApp().getJSONData("C:\\ACE\\csv2json\\ussd_notification_message_formats_test.csv");
         String _jsonArrayString = new RegexApp().getJSONData("C:\\ACE\\csv2json\\ussd_notification_mappings.csv");
-        String commandID = "VIEWBILL";
-        String strussd = "TID 010710979849. 00180566 - kuickpay bill of Rs 12,000.00 of 00008181329954 due by 2023-12-31 paid on 11:27:15 AM. Collect:Rs 12,000.00, Bal:Rs 845,003.73";
+        String commandID = "DONATION";
+        String strussd = "Dear customer, you have successfully donated Rs 10.00 to Edhi. Fee: 0.00Balance: Rs 8,490.00 TID: 010711143860 Thank you for your contribution!";
         //String commandID = "balance";
         //String strussd = "Rs 10,947.00 is your available balance on JazzCash Mobile A/C: 7376362, as of 28/09/2020 05:27:13 PM.";
         //String commandID = "SENDOTC";
         //String strussd = "TID 010710873700. Rs 100.00 sent to JazzCash A/C # 3246284 , 03079770700 on 30/09/2020 00:36:29 AM. Collect:Rs 100.00, Fee:Rs 0.00, Bal:Rs 247,645.67";
+        strussd = strussd.replace(".\n", " ").replace(".\r", " ");
         strussd = strussd.replace("\n", "").replace("\r", "");
+        strussd = strussd.replace(".\\n", " ").replace(".\\r", " ");
+        strussd = strussd.replace("\\n", "").replace("\\r", "");
 
         JSONArray jsonArray = (JSONArray) new JSONParser().parse(jsonArrayString);
         JSONArray _jsonArray = (JSONArray) new JSONParser().parse(_jsonArrayString);
         HashMap<String, String> ussdMap = null;
-        
+
         //ussdMap = new RegexApp().matchUssdPattern(strussd, "TID {{Transaction.BasicInfo.TransLogId}}. {{Transaction.Credit.IdentityName}} bill of {{Transaction.FeeInfo.ActualAmount}} of {{Transaction.PayBillInfo.BillReferenceNumber}} due by {{Transaction.BillInfo.DueDate}} paid on {{Transaction.BasicInfo.TransInitiateTime}}. Collect:{{Transaction.Deduction}}, Bal:{{Transaction.Debit.IdentityAccountBalance}}");
-        
         //System.out.println(new RegexApp().jazzrules("{{#Transaction.LimitRemind.LimitRemind}}{{#switch}} case [{{LimitRuleId}}] == [5] : [LimitRuleName: {{LimitRuleName}} RemainingValue: {{RemainingValue}}];default : [];{{/switch}}{{/Transaction.LimitRemind.LimitRemind}}"));
         for (Object _jsonObj : jsonArray) {
             JSONObject jsonObj = (JSONObject) _jsonObj;
-            if (commandID.equalsIgnoreCase((String) jsonObj.get("COMMAND_ID"))) 
-            {
+            if (commandID.equalsIgnoreCase((String) jsonObj.get("COMMAND_ID"))) {
                 String strussd_format = (String) jsonObj.get("CONTENT");
+                strussd_format = strussd_format.replace(".\n", " ").replace(".\r", " ");
                 strussd_format = strussd_format.replace("\n", "").replace("\r", "");
+                strussd_format = strussd_format.replace(".\\n", " ").replace(".\\r", " ");
+                strussd_format = strussd_format.replace("\\n", "").replace("\\r", "");
 
                 //System.out.println((strussd_format));
                 //System.out.println(new RegexApp().jazzrules(strussd_format));
@@ -226,8 +230,8 @@ public class RegexApp {
                         //if (blockinnerdata.startsWith("{{#switch")) {
                         //    strussd_format = strussd_format.replace(blockdata, "{{switch}}");
                         //} else {
-                            strussd_format = strussd_format.replace(blockdata, "{{" + blockname + "}}");
-                            idx = blockendidx - (blockdata.length()) + new String("{{" + blockname + "}}").length();
+                        strussd_format = strussd_format.replace(blockdata, "{{" + blockname + "}}");
+                        idx = blockendidx - (blockdata.length()) + new String("{{" + blockname + "}}").length();
                         //}
                     }
                 }
